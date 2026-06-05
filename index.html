@@ -53,7 +53,7 @@ width:520px;
 position:relative;
 z-index:5;
 top:-20px;
-pointer-events:none;
+pointer-events:auto;
 
 filter:
 brightness(1.4)
@@ -137,8 +137,22 @@ font-weight:300;
 color:white;
 }
 
+/* 这是电脑版的提示文字样式 */
+.surprise-tip {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    position: relative;
+    top: -85px; /* 👈 调整这个数值来控制电脑版上的上下位置 */
+    text-align: center;
+    z-index: 100;
+    animation: pulse 1.8s infinite;
+    text-shadow: 0 0 8px rgba(255,255,255,.8);
+}
+
 .tagline{
 position:relative;
+z-index:100;
 top:-80px;
 
 font-size:1.15rem;
@@ -293,11 +307,16 @@ display:block;
 width:260px;
 margin:auto;
 top:0;
+
+pointer-events:none;
 }
 
 .logo{
 width:200px;
 top:-20px;
+
+pointer-events:auto;
+
 filter:none;
 }
 
@@ -306,14 +325,36 @@ width:350px;
 height:350px;
 }
 
+.money-trigger{
+display:inline-block;
+position:relative;
+cursor:pointer;
+z-index:50;
+}
+
+.surprise-tip {
+    position: relative !important; 
+    top: -5px; /* 👈 调整这个数值来控制上下位置 */
+    
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    z-index: 999;
+    
+    animation: pulse 1.8s infinite;
+    text-shadow: 0 0 8px rgba(255,255,255,.8);
+}
+
 .tagline{
-top:0px;
+top:25px;
 font-size:1rem;
 letter-spacing:2px;
 }
 
 .buttons{
-top:15px;
+top:30px;
 }
 
 .btn{
@@ -624,6 +665,41 @@ transform:translateX(-100%);
 
 }
 
+
+@keyframes pulse{
+
+0%{
+opacity:1;
+}
+
+50%{
+opacity:.4;
+}
+
+100%{
+opacity:1;
+}
+
+}
+
+
+@keyframes pulse{
+
+0%{
+opacity:1;
+}
+
+50%{
+opacity:.4;
+}
+
+100%{
+opacity:1;
+}
+
+}
+}
+
 </style>
 </head>
 <body>
@@ -634,11 +710,24 @@ transform:translateX(-100%);
 
 <div class="logo-wrap">
 
-    <img src="logo.png" class="logo desktop-logo">
+<img src="logo.png"
+class="logo desktop-logo"
+onclick="moneyRain()">
 
-    <img src="logo-mobile.png" class="logo mobile-logo">
+<div class="money-trigger"
+onclick="moneyRain()">
+
+<img src="logo-mobile.png"
+class="logo mobile-logo"
+onclick="moneyRain()">
 
 </div>
+
+</div>
+
+<p class="surprise-tip">
+🎁 点击 Logo 和 IG 有惊喜
+</p>
 
 <p class="tagline">
 <a href="https://www.instagram.com/youqianhua06/"
@@ -861,5 +950,60 @@ Penang❤️
 </p>
 
 </footer>
+
+<script>
+
+function moneyRain(){
+
+for(let i=0;i<25;i++){
+
+const money=document.createElement("img");
+
+const notes=[
+"rm50.jpg",
+"rm100.jpg"
+];
+
+money.src=
+notes[Math.floor(Math.random()*notes.length)];
+
+money.style.position="fixed";
+money.style.left=Math.random()*window.innerWidth+"px";
+money.style.top="-120px";
+
+money.style.width="90px";
+money.style.zIndex="9999";
+money.style.pointerEvents="none";
+
+document.body.appendChild(money);
+
+const duration=
+3000+Math.random()*2000;
+
+money.animate(
+[
+{
+transform:"translateY(0) rotate(0deg)"
+},
+{
+transform:`translateY(${window.innerHeight+300}px)
+rotate(${Math.random()*720-360}deg)`
+}
+],
+{
+duration:duration,
+easing:"linear"
+}
+);
+
+setTimeout(()=>{
+money.remove();
+},duration);
+
+}
+
+}
+
+</script>
 </body>
 </html>
