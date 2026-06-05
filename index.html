@@ -63,6 +63,14 @@ drop-shadow(0 0 60px rgba(255,255,255,.5))
 drop-shadow(0 0 120px rgba(255,255,255,.3));
 }
 
+.desktop-logo{
+display:block;
+}
+
+.mobile-logo{
+display:none;
+}
+
 .hero-content{
 width:45%;
 margin-right:auto;
@@ -261,14 +269,6 @@ font-weight:bold;
 z-index:10;
 }
 
-footer{
-padding:50px;
-text-align:center;
-background:#fff;
-border-top:1px solid #eee;
-line-height:1.8;
-}
-
 @media(max-width:768px){
 
 header{
@@ -284,9 +284,21 @@ transform:none;
 margin:0 auto;
 }
 
-.logo{
-width:180px;
+.desktop-logo{
+display:none;
+}
+
+.mobile-logo{
+display:block;
+width:260px;
+margin:auto;
 top:0;
+}
+
+.logo{
+width:200px;
+top:-20px;
+filter:none;
 }
 
 .logo-wrap::before{
@@ -295,15 +307,13 @@ height:350px;
 }
 
 .tagline{
-top:-20px;
+top:0px;
 font-size:1rem;
 letter-spacing:2px;
 }
 
 .buttons{
-top:-10px;
-gap:10px;
-justify-content:center;
+top:15px;
 }
 
 .btn{
@@ -317,14 +327,26 @@ display:none;
 
 .products{
 display:flex;
-flex-direction:column;
-align-items:center;
+flex-wrap:nowrap;
+overflow-x:auto;
+
+gap:15px;
+
+padding:0 20px;
+
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
 }
 
-.products .card,
-.otw-products .card{
-width:100%;
-max-width:380px;
+.products::-webkit-scrollbar{
+display:none;
+}
+
+.products .card{
+flex:0 0 85%;
+max-width:none;
+scroll-snap-align:center;
+
 }
 
 .section-title{
@@ -339,18 +361,18 @@ footer h3{
 font-size:1.4rem;
 }
 
+.otw-products{
+display:none;
 }
 
-.card{
-background:white;
-border:1px solid rgba(212,167,106,.15);
-border-radius:24px;
-overflow:hidden;
-box-shadow:0 5px 20px rgba(0,0,0,.08);
-transition:all .3s ease;
-display:block;
-text-decoration:none;
-color:#333;
+.otw-mobile{
+display:block !important;
+}
+
+.products::before{
+content:"";
+flex:0 0 240px;
+}
 }
 
 .card:hover{
@@ -465,13 +487,26 @@ max-width:1200px;
 margin:auto;
 }
 
+@media(max-width:768px){
+
+.otw-products{
+display:none !important;
+visibility:hidden;
+height:0;
+overflow:hidden;
+}
+
+}
+
 .vertical-slider{
 position:absolute;
 right:80px;
 top:50%;
 transform:translateY(-50%);
+
 width:280px;
-height:500px;
+height:620px;
+
 overflow:hidden;
 border-radius:20px;
 box-shadow:0 10px 30px rgba(0,0,0,.3);
@@ -484,6 +519,8 @@ box-shadow:0 10px 30px rgba(0,0,0,.3);
 .track{
 display:flex;
 flex-direction:column;
+gap:15px;
+padding-top:15px;
 animation:scrollUp 18s linear infinite;
 }
 
@@ -492,7 +529,6 @@ width:100%;
 aspect-ratio:1/1;
 object-fit:cover;
 display:block;
-margin-bottom:15px;
 border-radius:15px;
 }
 
@@ -529,22 +565,6 @@ z-index:-1;
 pointer-events:none;
 }
 
-.section-title{
-font-family:"Noto Serif SC",serif;
-font-size:2.5rem;
-font-weight:600;
-color:#6d5747;
-}
-
-@keyframes scrollUp{
-0%{
-transform:translateY(0);
-}
-100%{
-transform:translateY(-50%);
-}
-}
-
 @keyframes scrollUp{
 0%{
 transform:translateY(0);
@@ -556,9 +576,52 @@ transform:translateY(-50%);
 
 footer h3{
 font-family:"Noto Serif SC",serif;
-font-size:1.8rem;
+font-size:clamp(1.5rem,4vw,1.8rem);
 font-weight:600;
 color:#444;
+}
+
+.otw-mobile{
+display:none;
+overflow:hidden;
+width:100%;
+margin-top:20px;
+}
+
+.otw-mobile-track{
+display:flex;
+gap:12px;
+width:max-content;
+padding-left:100%;
+animation:otwMove 12s linear infinite;
+}
+
+.otw-mobile span{
+white-space:nowrap;
+
+padding:12px 18px;
+
+background:white;
+
+border:1px solid #ddd;
+
+border-radius:999px;
+
+font-size:14px;
+
+color:#666;
+}
+
+@keyframes otwMove{
+
+0%{
+transform:translateX(0);
+}
+
+100%{
+transform:translateX(-100%);
+}
+
 }
 
 </style>
@@ -570,7 +633,11 @@ color:#444;
 <div class="hero-content">
 
 <div class="logo-wrap">
-    <img src="logo.png" class="logo">
+
+    <img src="logo.png" class="logo desktop-logo">
+
+    <img src="logo-mobile.png" class="logo mobile-logo">
+
 </div>
 
 <p class="tagline">
@@ -693,7 +760,28 @@ href="#contact">
 
 </div>
 
+<div class="otw-mobile">
+
+<div class="otw-mobile-track">
+
+<span>🌹 花给女朋友</span>
+<span>🖤 花给男朋友</span>
+<span>👩 妈，我还有钱花</span>
+<span>👨 给老登的花</span>
+<span>⭐ 赛季限定</span>
+
+<span>🌹 花给女朋友</span>
+<span>🖤 花给男朋友</span>
+<span>👩 妈，我还有钱花</span>
+<span>👨 给老登的花</span>
+<span>⭐ 赛季限定</span>
+
+</div>
+
+</div>
+
 </section>
+
 <section>
 
 <h2 class="section-title">
