@@ -129,6 +129,46 @@ color:white;
 text-shadow:0 4px 20px rgba(0,0,0,.4);
 }
 
+/* 关于我们 */
+.about-section{
+background:#FAF7F2;
+}
+
+/* 联系我们 */
+.contact-section{
+background:#F5EFE6;
+}
+
+/* 标题 */
+.about-section .section-title,
+.contact-section .section-title{
+color:#4A403A;
+}
+
+/* 标题下面那条线 */
+.about-section .section-title::after,
+.contact-section .section-title::after{
+background:#D8B7B3;
+}
+
+/* 内容文字 */
+.about-section p,
+.contact-section p{
+color:#7A6E67;
+}
+
+/* 钱小姐 */
+.contact-section h3{
+color:#4A403A;
+}
+
+/* WhatsApp按钮 */
+.contact-section .whatsapp{
+background:#25D366;
+color:white;
+font-weight:600;
+}
+
 .subtitle{
 font-family:"Segoe UI",sans-serif;
 letter-spacing:10px;
@@ -153,7 +193,7 @@ color:white;
 .tagline{
 position:relative;
 z-index:100;
-top:-80px;
+top:-75px;
 
 font-size:1.15rem;
 letter-spacing:3px;
@@ -477,7 +517,7 @@ text-align:center;
 footer{
 padding:30px;
 text-align:center;
-background:#fff;
+background:#EFE7DA;
 }
 
 .whatsapp{
@@ -619,7 +659,11 @@ footer h3{
 font-family:"Noto Serif SC",serif;
 font-size:clamp(1.5rem,4vw,1.8rem);
 font-weight:600;
-color:#444;
+color:#4A403A;
+}
+
+footer p{
+color:#7A6E67;
 }
 
 .otw-mobile{
@@ -871,8 +915,7 @@ href="#contact">
 
 </section>
 
-<section>
-
+<section class="about-section">
 <h2 class="section-title">
 关于我们
 </h2>
@@ -894,8 +937,7 @@ href="#contact">
 
 </section>
 
-<section id="contact">
-
+<section id="contact" class="contact-section">
 <h2 class="section-title">
 联系我们
 </h2>
@@ -953,7 +995,11 @@ Penang❤️
 
 <script>
 
+let clickCount = 0;
+
 function moneyRain(){
+
+clickCount++;
 
 for(let i=0;i<25;i++){
 
@@ -1001,6 +1047,18 @@ money.remove();
 },duration);
 
 }
+
+if(clickCount >= 5){
+
+setTimeout(()=>{
+window.location.href="secret-garden.html";
+},800);
+
+}
+
+setTimeout(()=>{
+clickCount=0;
+},3000);
 
 }
 
